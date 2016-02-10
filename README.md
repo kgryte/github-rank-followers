@@ -197,12 +197,14 @@ Usage: ghrankfollowers [options]
 
 Options:
 
-  -h,  --help               Print this message.
-  -V,  --version            Print the package version.
-       --token token        Github access token.
-       --username username  Github username.
-  -ua, --useragent ua       User agent.
-       --method method      Rank method. Default: followers.
+  -h,  --help                 Print this message.
+  -V,  --version              Print the package version.
+       --token token          Github access token.
+       --username username    Github username.
+  -ua, --useragent ua         User agent.
+       --method method        Rank method. Default: followers.
+       --format format        Output format: csv or json. Default: csv.
+       --delimiter delimiter  CSV column delimiter. Default: ','.
 ```
 
 
@@ -210,6 +212,8 @@ Options:
 
 *	In addition to the [`token`][github-token] option, the [token][github-token] may also be specified by a [`GITHUB_TOKEN`][github-token] environment variable. The command-line option __always__ takes precedence.
 *	Analysis results are written to `stdout`.
+	-	If the output format is [`csv`][csv], only the `username` and associated score used to rank a user are written to `stdout`.
+	-	If the output format is [`json`][json], results written to `stdout` include both raw [user detail][github-user-details] data and associated scores.
 *	[Rate limit][github-rate-limit] information is written to `stderr`.
 
 
@@ -218,30 +222,54 @@ Options:
 Setting the access [token][github-token] using the command-line option:
 
 ``` bash
-$ DEBUG=* ghrankfollowers --token <token> --username 'kgryte'
-# => '{"data":[{...},{...},...],"results":[...]}'
+$ DEBUG=* ghrankfollowers --token <token> --username kgryte
+# => username,value
+# => user1,869
+# => user2,637
+# => user3,544
+# => ...
 ```
 
 Setting the access [token][github-token] using an environment variable:
 
 ``` bash
-$ DEBUG=* GITHUB_TOKEN=<token> ghrankfollowers --username 'kgryte'
-# => '{"data":[{...},{...},...],"results":[...]}'
+$ DEBUG=* GITHUB_TOKEN=<token> ghrankfollowers --username kgryte
+# => username,value
+# => user1,869
+# => user2,637
+# => user3,544
+# => ...
 ```
 
 For local installations, modify the command to point to the local installation directory; e.g., 
 
 ``` bash
-$ DEBUG=* ./node_modules/.bin/ghrankfollowers --token <token> --username 'kgryte'
-# => '{"data":[{...},{...},...],"results":[...]}'
+$ DEBUG=* ./node_modules/.bin/ghrankfollowers --token <token> --username kgryte
+# => username,value
+# => user1,869
+# => user2,637
+# => user3,544
+# => ...
 ```
 
 Or, if you have cloned this repository and run `npm install`, modify the command to point to the executable; e.g., 
 
 ``` bash
-$ DEBUG=* node ./bin/cli --token <token> --username 'kgryte'
+$ DEBUG=* node ./bin/cli --token <token> --username kgryte
+# => username,value
+# => user1,869
+# => user2,637
+# => user3,544
+# => ...
+```
+
+To output as [JSON][json], set the `format` option.
+
+``` bash
+$ DEBUG=* ghrankfollowers --token <token> --username kgryte --format json
 # => '{"data":[{...},{...},...],"results":[...]}'
 ```
+
 
 ---
 ## Tests
@@ -323,6 +351,8 @@ Copyright &copy; 2016. Athan Reines.
 [testling]: https://ci.testling.com
 
 [unix-time]: http://en.wikipedia.org/wiki/Unix_time
+[csv]: https://en.wikipedia.org/wiki/Comma-separated_values
+[json]: http://www.json.org/
 
 [github-followers]: https://github.com/kgryte/github-followers
 [github-user-details]: https://github.com/kgryte/github-user-details

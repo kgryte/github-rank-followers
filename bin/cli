@@ -14,8 +14,10 @@ var rank = require( './../lib' );
 
 // VARIABLES //
 
+var delimiter;
 var token;
 var args;
+var fmt;
 
 
 // FUNCTIONS //
@@ -86,6 +88,15 @@ else if ( process.env.GITHUB_TOKEN ) {
 if ( token ) {
 	opts.token = token;
 }
+if (
+	args.format &&
+	args.format !== 'csv' &&
+	args.format !== 'json'
+) {
+	throw new Error( 'invalid option. Format option must be either `csv` or `json`. Option: `' + args.format + '`.' );
+}
+fmt = args.format || 'csv';
+delimiter = args.delimiter || ',';
 
 
 // RANK //
@@ -103,6 +114,7 @@ rank( opts, clbk );
 * @returns {Void}
 */
 function clbk( error, data, info ) {
+	var writer;
 	if ( info ) {
 		process.stderr.write( JSON.stringify( info ) + '\n' );
 	}
@@ -110,5 +122,63 @@ function clbk( error, data, info ) {
 		process.stderr.write( error.message );
 		return;
 	}
-	process.stdout.write( JSON.stringify( data ) + '\n' );
-}
+	if ( fmt === 'json' ) {
+		writer = json;
+	} else {
+		writer = csv;
+	}
+	writer( process.stdout, data );
+	process.exit( 0 );
+} // end FUNCTION clbk()
+
+/**
+* FUNCTION: csv( stream, data )
+*	Writes newline-delimited column-separated values to a writable stream.
+*
+* @private
+* @param {Stream} stream - writable stream
+* @param {Object} data - data to write
+* @returns {Void}
+*/
+function csv( stream, data ) {
+	var scores;
+	var row;
+	var len;
+	var i;
+
+	scores = data.results;
+	data = data.data;
+
+	// Number of users:
+	len = scores.length;
+
+	// Write CSV headers...
+	row = 'username'+delimiter+'value'+'\n';
+	stream.write( row, 'utf8' );
+
+	// Write CSV values...
+	for ( i = 0; i < len; i++ ) {
+		row = data[ i ].login;
+		row += delimiter;
+		row += scores[ i ];
+		row += '\n';
+
+		// Write out the row:
+		stream.write( row, 'utf8' );
+	}
+} // end FUNCTION csv()
+
+/**
+* FUNCTION: json( stream, data )
+*	Writes JSON to a writable stream.
+*
+* @private
+* @param {Stream} stream - writable stream
+* @param {Object} data - data to write
+* @returns {Void}
+*/
+function json( stream, data ) {
+	var out;
+	out = JSON.stringify( data ) + '\n';
+	stream.write( out, 'utf8' );
+} // end FUNCTION json()

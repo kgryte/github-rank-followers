@@ -3,7 +3,9 @@
 		"token",
 		"useragent",
 		"username",
-		"method"
+		"method",
+		"format",
+		"delimiter"
 	],
 	"boolean": [
 		"help",
