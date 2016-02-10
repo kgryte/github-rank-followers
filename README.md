@@ -30,7 +30,7 @@ var opts = {
 
 rank( opts, clbk );
 
-function clbk( error, data, info ) {
+function clbk( error, results, info ) {
 	// Check for rate limit information...
 	if ( info ) {
 		console.error( 'Limit: %d', info.limit );
@@ -40,7 +40,7 @@ function clbk( error, data, info ) {
 	if ( error ) {
 		throw new Error( error.message );
 	}
-	console.log( JSON.stringify( data ) );
+	console.log( JSON.stringify( results ) );
 	/*
 		{
 			"data": [
@@ -59,11 +59,15 @@ function clbk( error, data, info ) {
 }
 ```
 
+The returned `results` is comprised as follows:
+*	__data__: raw user detail data.
+*	__results__: corresponding computed scores used to rank followers.
+
 The `function` accepts the following `options`:
 *	__token__: Github [access token][github-token].
 *	__username__: Github username.
 *	__useragent__: [user agent][github-user-agent] `string`.
-*	__method__: analysis method. Default: 'followers'.
+*	__method__: analysis method. Default: `'followers'`.
 	-	__followers__: rank based on `follower` count.
 	-	__following__: rank based on `following` count.
 	-	__repos__: rank based on number of public repositories.
