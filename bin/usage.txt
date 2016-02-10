@@ -1,0 +1,12 @@
+
+Usage: ghrankfollowers [options] 
+
+Options:
+
+  -h,  --help               Print this message.
+  -V,  --version            Print the package version.
+       --token token        Github access token.
+       --username username  Github username.
+  -ua, --useragent ua       User agent.
+       --method method      Rank method. Default: followers.
+
