@@ -322,6 +322,8 @@ Copyright &copy; 2016. Athan Reines.
 [istanbul]: https://github.com/gotwarlost/istanbul
 [testling]: https://ci.testling.com
 
+[unix-time]: http://en.wikipedia.org/wiki/Unix_time
+
 [github-followers]: https://github.com/kgryte/github-followers
 [github-user-details]: https://github.com/kgryte/github-user-details
 [github-api]: https://developer.github.com/v3/
