@@ -60,7 +60,7 @@ function clbk( error, results, info ) {
 ```
 
 The returned `results` is comprised as follows:
-*	__data__: raw user detail data.
+*	__data__: raw [user detail][github-user-details] data.
 *	__results__: corresponding computed scores used to rank followers.
 
 The `function` accepts the following `options`:
@@ -323,6 +323,7 @@ Copyright &copy; 2016. Athan Reines.
 [testling]: https://ci.testling.com
 
 [github-followers]: https://github.com/kgryte/github-followers
+[github-user-details]: https://github.com/kgryte/github-user-details
 [github-api]: https://developer.github.com/v3/
 [github-token]: https://github.com/settings/tokens/new
 [github-oauth2]: https://developer.github.com/v3/#oauth2-token-sent-in-a-header
