@@ -126,7 +126,7 @@ var opts = {
 	'token': 'tkjorjk34ek3nj4!'
 };
 
-var run = rank.factory( opts, onFollowers );
+var run = rank.factory( opts, clbk );
 
 run();
 run();
