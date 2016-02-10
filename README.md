@@ -85,7 +85,7 @@ var opts = {
 rank( opts, clbk );
 ```
 
-To get the analyize the [followers][github-followers] of a particular user, set the `username` option.
+To analyze the [followers][github-followers] of a particular user, set the `username` option.
 
 ``` javascript
 var opts = {
