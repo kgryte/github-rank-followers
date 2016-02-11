@@ -52,7 +52,7 @@ tape( 'function returns an error to a provided callback if an error is encounter
 	}
 });
 
-tape( 'functions returns analysis results to a provided callback', function test( t ) {
+tape( 'function returns analysis results to a provided callback', function test( t ) {
 	var expected;
 	var opts;
 	var rank;
