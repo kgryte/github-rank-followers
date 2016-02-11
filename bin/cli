@@ -105,11 +105,11 @@ rank( opts, clbk );
 
 /**
 * FUNCTION: clbk( error, data, info )
-*	Callback invoked upon receiving a request response.
+*	Callback invoked upon performing analysis.
 *
 * @private
 * @param {Error|Null} error - error object
-* @param {Array[]} data - response data
+* @param {Object} data - analysis results
 * @param {Object} info - rate limit info
 * @returns {Void}
 */
