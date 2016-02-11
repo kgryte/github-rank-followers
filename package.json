@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "github-followers": "^1.0.1",
+    "github-rank-users": "^1.0.0",
     "github-user-details": "^1.0.0",
     "minimist": "^1.2.0",
     "object-keys": "^1.0.9",

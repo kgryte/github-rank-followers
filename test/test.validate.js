@@ -136,29 +136,6 @@ tape( 'if provided a `method` option which is not a primitive string, the functi
 	t.end();
 });
 
-tape( 'if provided an unrecognized `method` option, the function returns an error', function test( t ) {
-	var values;
-	var err;
-	var i;
-
-	values = [
-		'beep',
-		'boop',
-		'bop',
-		'bap',
-		'fft',
-		'dtw'
-	];
-
-	for ( i = 0; i < values.length; i++ ) {
-		err = validate( {}, {
-			'method': values[i]
-		});
-		t.ok( err instanceof Error, 'returns error when provided ' + values[i] );
-	}
-	t.end();
-});
-
 tape( 'the function returns `null` if all options are valid', function test( t ) {
 	var err;
 
