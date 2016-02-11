@@ -61,7 +61,7 @@ function clbk( error, results, info ) {
 
 The returned `results` is comprised as follows:
 *	__data__: raw [user detail][github-user-details] data.
-*	__results__: corresponding computed scores used to rank followers.
+*	__results__: corresponding computed scores used to [rank][github-rank-users] followers.
 
 The `function` accepts the following `options`:
 *	__token__: Github [access token][github-token].
