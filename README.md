@@ -67,13 +67,7 @@ The `function` accepts the following `options`:
 *	__token__: Github [access token][github-token].
 *	__username__: Github username.
 *	__useragent__: [user agent][github-user-agent] `string`.
-*	__method__: analysis method. Default: `'followers'`.
-	-	__followers__: rank based on `follower` count.
-	-	__following__: rank based on `following` count.
-	-	__repos__: rank based on number of public repositories.
-	-	__gists__: rank based on number of public gists.
-	-	__created__: rank based on when a user created a Github account.
-	-	__ffratio__: rank based on the ratio of `follower`-to-`following`. 
+*	__method__: analysis method (see [github-rank-users][github-rank-users]). Default: `'followers'`.
 
 To [authenticate][github-oauth2] with Github, set the [`token`][github-token] option.
 
@@ -356,6 +350,7 @@ Copyright &copy; 2016. Athan Reines.
 
 [github-followers]: https://github.com/kgryte/github-followers
 [github-user-details]: https://github.com/kgryte/github-user-details
+[github-rank-users]: https://github.com/kgryte/github-rank-users
 [github-api]: https://developer.github.com/v3/
 [github-token]: https://github.com/settings/tokens/new
 [github-oauth2]: https://developer.github.com/v3/#oauth2-token-sent-in-a-header
