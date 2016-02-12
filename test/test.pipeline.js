@@ -6,6 +6,7 @@ var tape = require( 'tape' );
 var assert = require( 'chai' ).assert;
 var proxyquire = require( 'proxyquire' );
 var noop = require( '@kgryte/noop' );
+var copy = require( 'utils-copy' );
 var pipeline = require( './../lib/pipeline.js' );
 
 
@@ -20,7 +21,7 @@ var details = {
 		'success': 2,
 		'failure': 0
 	},
-	'data': followers,
+	'data': require( './fixtures/raw.json' ),
 	'failures': {}
 };
 var results = require( './fixtures/results.json' );
@@ -134,6 +135,45 @@ tape( 'if an error is encountered while fetching a user details, the function re
 	function done( error ) {
 		t.equal( error.status, 404, 'equal status' );
 		t.equal( error.message, 'beep', 'equal message' );
+		t.end();
+	}
+});
+
+tape( 'if an error is encountered while fetching a user details (e.g., rate limit throttling), the function returns the error to the callback', function test( t ) {
+	var pipeline;
+	var results;
+	var opts;
+
+	pipeline = proxyquire( './../lib/pipeline.js', {
+		'github-followers': getFollowers,
+		'github-user-details': getDetails,
+		'github-rank-users': noop
+	});
+
+	results = copy( details );
+	results.meta.success = 1;
+	results.meta.failure = 1;
+
+	opts = getOpts();
+	pipeline( opts, done );
+
+	function getFollowers( opts, clbk ) {
+		setTimeout( onTimeout, 0 );
+		function onTimeout() {
+			clbk( null, followers, info );
+		}
+	}
+
+	function getDetails( opts, clbk ) {
+		setTimeout( onTimeout, 0 );
+		function onTimeout() {
+			clbk( null, results, info );
+		}
+	}
+
+	function done( error ) {
+		t.equal( error.status, 429, 'equal status' );
+		t.equal( typeof error.message, 'string', 'returns an error message' );
 		t.end();
 	}
 });

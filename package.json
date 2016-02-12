@@ -54,7 +54,7 @@
     "github-rank-users": "^1.0.0",
     "github-user-details": "^1.0.0",
     "minimist": "^1.2.0",
-    "object-keys": "^1.0.9",
+    "object-values-to-array": "^1.0.0",
     "update-notifier": "^0.6.0",
     "utils-merge2": "^1.0.0",
     "validate.io-function": "^1.0.2",
@@ -74,7 +74,8 @@
     "proxyquireify": "^3.1.1",
     "tap-spec": "4.x.x",
     "tape": "4.x.x",
-    "testling": "1.x.x"
+    "testling": "1.x.x",
+    "utils-copy": "^1.1.0"
   },
   "testling": {
     "files": [
